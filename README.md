@@ -1,1 +1,1 @@
-RPG
+Basic classes for RPG games
