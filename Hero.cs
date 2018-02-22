@@ -6,82 +6,82 @@ namespace RPG
 {
     public class Hero
     {
-        public int hp { get; protected set; }
-        protected int damage;
-        protected double defence;
-        protected double protection = 0;
-        public string name { get; protected set; }
-        public Team team { get; protected set; }
-        public string description { get; protected set; }
-        
-        public void death()
-        {
-            team.removeFromTeam(this);
-        }
-        
+        public int Hp { get; protected set; }
+        public int Damage { get; protected set; }
+        public double Defence { get; protected set; }
+        public double Protection { get; protected set; }
+        public string Name { get; protected set; }
+        public Team Team { get; protected set; }
+        protected string description;
+
         public Hero(Team team)
         {
-            this.team = team;
-            description = "NoDescription";
-            name = "NoName";
+            Team = team;
+        }
+
+        public override string ToString()
+        {
+            return description; // по-другому
         }
         
-        protected void attack(Team other)
+        public void Death()
         {
-            int i = 1;
-            foreach (Hero el in other.getHeroes())
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("{0} из команды {1} убит!", Name, Team.Name);
+            Console.ForegroundColor = ConsoleColor.White;
+            Team.Remove(this);
+        }
+        
+        protected void Attack(Team other)
+        {
+            for (int i = 0; i < other.Heroes.Count; i++)
             {
-                Console.WriteLine("{0}.{1} ({2} hp)", i, el.name, el.hp);
+                Console.WriteLine(i + 1 + "." + other.Heroes[i].Name);
                 i++;
             }
             Console.Write("Choose target: ");
             int target = int.Parse(Console.ReadLine()) - 1;
-            other.getHeroes()[target].takeDamage(damage);
+            other.Heroes[target].TakeDamage(Damage);
         }
 
-        public virtual void turn(Team other, Team our)
+        public virtual void Turn(Team other, Team our)
         {
             Console.WriteLine(false);
         }
         
-        public void takeDamage(int damage)
+        public void TakeDamage(int damage)
         {
-            damage -= Convert.ToInt32(damage * defence);
-            damage -= Convert.ToInt32(damage * protection);
-            hp -= damage;
-            protection = 0;
+            damage -= Convert.ToInt32(damage * Defence);
+            damage -= Convert.ToInt32(damage * Protection);
+            Hp -= damage;
+            Protection = 0;
 
-            Console.Clear();
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("{0} from team {3} taked {1} damage.Now {0} has {2} hp", name, damage, hp, team.name);
+            Console.WriteLine("{0} from team {3} taked {1} damage.Now {0} has {2} hp", Name, Damage, Hp, Team.Name);
             Console.ForegroundColor = ConsoleColor.White;
         }
         
-        public virtual void setProtection(double value)
+        public virtual void SetProtection(double value)
         {
-            protection = value;
+            Protection = value;
         }
         
-        public void healing(double value = 0.25)
+        public void Healing(double value = 0.25)
         {
-            int healCount = Convert.ToInt32(hp * value);
-            hp += healCount;
+            int healCount = Convert.ToInt32(Hp * value);
+            Hp += healCount;
 
-            Console.Clear();
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("{0} from team {3} got {1} healing.Now {0} has {2}HP", name, healCount, hp, team.name);
+            Console.WriteLine("{0} from team {3} got {1} healing.Now {0} has {2}HP", Name, healCount, Hp, Team.Name);
             Console.ForegroundColor = ConsoleColor.White;
         }
 
-        protected int chooseAction()
+        public void CheckState()
         {
-            int action;
-            do
+            if (Hp <= 0)
             {
-                Console.Write("Choose ability: ");
-                action = int.Parse(Console.ReadLine());
-            } while (action > 3 || action < 1);
-            return action;
+                this.Death();
+            }
         }
     }
 }

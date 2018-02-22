@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 
@@ -7,31 +6,31 @@ namespace RPG
 {
     public class Swordsman : Hero
     {
-        public Swordsman(Team team) : base(team)
+        public Swordsman(Team team) : base(team) // поменять конструтор
         {
-            base.damage = 20;
-            base.defence = 0;
-            base.hp = 60;
-            base.name = "Swordsman";
+            base.Damage = 20;
+            base.Defence = 0;
+            base.Hp = 60;
+            base.Name = "Swordsman";
             base.description = "1.Can attack(15 damage)\n2.Can heal himself(+25% hp).3.Upgrade Sword(damage +1)";
         }
 
-        public override void turn(Team other, Team our)
+        public override void Turn(Team other, Team our)
         {
-            int action = chooseAction();
+            int action = MyParser.Parse(1, 2);
             switch (action)
             {
                 case 1:
-                    attack(other);
+                    Attack(other);
                     break;
                 case 2:
-                    healing();
+                    Healing();
                     break;
             }
         }
-        public void upgradeSword()
+        public void UpgradeSword()
         {
-            damage += 1;
+            Damage += 1;
         }
     }
 }
