@@ -10,41 +10,40 @@ namespace RPG
         
         public Wizzard(Team team) : base(team)
         {
-            base.hp = 40;
-            base.damage = 8;
-            base.defence = 0;
-            base.name = "Wizzard";
+            base.Hp = 40;
+            base.Damage = 8;
+            base.Defence = 0;
+            base.Name = "Wizzard";
             base.description = "1.Can attack(-8)\n2.Can heal others(+50%)\n3.Can heal himself(+25%)";
         }
 
-        public override void turn(Team other, Team our)
+        public override void Turn(Team other, Team our)
         {
-            int action = chooseAction();
+            int action = MyParser.Parse(1, 3);
             switch (action)
             {
                 case 1:
-                    attack(other);
+                    Attack(other);
                     break;
                 case 2:
-                    healOther(our);
+                    HealOther(our);
                     break;
                 case 3:
-                    healing();
+                    Healing();
                     break;
             }
         }
         
-        public void healOther(Team our)
+        private void HealOther(Team our)
         {
-            int i = 1;
-            foreach (Hero el in our.getHeroes())
+            for (int i = 0; i < our.Heroes.Count; i++)
             {
-                Console.WriteLine(i + "." + el.name);
+                Console.WriteLine(i+1 + "." + our.Heroes[i].Name);
                 i++;
             }
             Console.Write("Choose target: ");
-            int target = int.Parse(Console.ReadLine()) - 1;
-            our.getHeroes()[target].healing(0.5);
+            int target = MyParser.Parse(1, 4) - 1;
+            our.Heroes[target].Healing(0.5);
         }
     }
 }

@@ -7,66 +7,53 @@ namespace RPG
 {
     public class Team
     {
-        public string name { get; protected set; }
-        List<Hero> team = new List<Hero>(capacity: 4);
-        
-        public List<Hero> getHeroes() { return team; }
+        public string Name { get; private set; }
+        public List<Hero> Heroes { get; private set; }
+        public bool IsLose { get; private set; }
 
         public Team(string name)
         {
-          this.name = name;
-          team.Add(new Wizzard(this));
-          team.Add(new Defender(this));
-          team.Add(new Swordsman(this));
-          team.Add(new Knight(this));
+            Heroes = new List<Hero>(capacity: 4);
+            Name = name;
+            IsLose = false;
+            Heroes.Add(new Swordsman(this));
+            Heroes.Add(new Knight(this));
+            Heroes.Add(new Wizzard(this));
+            Heroes.Add(new Defender(this));
         }
 
-        public void removeFromTeam(Hero hero)
+        public void Remove(Hero hero)
         {
-            team.Remove(hero);
+            Heroes.Remove(hero);
         }
         
-        public void turn(Team other, Team our)
+        public void Turn(Team other, Team our)
         {
-            Console.WriteLine("{0} is making turn", name);
-            int i = 1;
-            foreach(Hero v in team)
+            Console.WriteLine("{0} is making turn", Name);
+            for (int i = 0; i < Heroes.Count; i++)
             {
-                Console.WriteLine(i +  "." + v.name);
-                i++;
+                Console.WriteLine(i+1 + "." + Heroes.ToArray()[i].Name);
             }
             Console.Write("Choose hero: ");
-            int hero = int.Parse(Console.ReadLine()) - 1;
-            Console.WriteLine(team[hero].description);
-            team[hero].turn(other, our);
-            other.checkHeroes();
-            checkHeroes();
+            int hero = MyParser.Parse(1, 4) - 1;
+            Console.WriteLine(Heroes[hero].ToString());
+            Console.Write("Choose action: ");
+            Heroes[hero].Turn(other, our);
+            other.CheckState();
+            CheckState();
         }
 
-        private void checkHeroes()
+        public void CheckState() 
         {
-            foreach(Hero el in team.ToArray())
+            foreach (Hero el in Heroes.ToArray())
             {
-                if (el.hp <= 0)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("{0} из команды {1} убит!", el.name, name);
-                    Console.ForegroundColor = ConsoleColor.White;
-                    el.death();
-                }
+                el.CheckState();
             }
-        }
 
-        public bool checkTeam()
-        {
-            if(team.Count < 1)
+            if(Heroes.Count < 1)
             {
-                Console.WriteLine("Команда {0} проиграла!", name);
-                return false;
-            }
-            else
-            {
-                return true;
+                Console.WriteLine("Команда {0} проиграла!", Name);
+                IsLose = true;
             }
         }
     }

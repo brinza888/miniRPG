@@ -9,44 +9,43 @@ namespace RPG
     {
         public Defender(Team team) : base(team)
         {
-            base.hp = 100;
-            base.damage = 8;
-            base.defence = 0.25;
-            base.name = "Defender";
+            base.Hp = 100;
+            base.Damage = 8;
+            base.Defence = 0.25;
+            base.Name = "Defender";
             base.description = "1.Can attack(8 damage)\n2.Can protect friends(-25% damage)\n3.Can heal himself(+25% hp)\nIn passive use shield(-25% damage)";
         }
 
-        public override void turn(Team other, Team our)
+        public override void Turn(Team other, Team our)
         {
-            int action = chooseAction();
+            int action = MyParser.Parse(1, 3);
             switch (action)
             {
                 case 1:
-                    attack(other);
+                    Attack(other);
                     break;
                 case 2:
-                    protectOther(our);
+                    ProtectOther(our);
                     break;
                 case 3:
-                    healing();
+                    Healing();
                     break;
             }
         }
 
-        public void protectOther(Team our)
+        private void ProtectOther(Team our)
         {
-            int i = 1;
-            foreach (Hero el in our.getHeroes())
+            for (int i = 0; i < our.Heroes.Count; i++)
             {
-                Console.WriteLine(i + " " + el.name);
+                Console.WriteLine(i + 1 + "." + our.Heroes[i].Name);
                 i++;
             }
             Console.Write("Choose target: ");
             int target = int.Parse(Console.ReadLine()) - 1;
-            our.getHeroes()[target].setProtection(0.25);
+            our.Heroes[target].SetProtection(0.25);
         }
         
-        public override void setProtection(double value)
+        public override void SetProtection(double value)
         {
             Console.WriteLine("Defender cant give shield for himself!");
         }
