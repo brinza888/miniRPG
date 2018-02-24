@@ -13,7 +13,7 @@ namespace RPG
             base.Damage = 15;
             base.Defence = 0;
             base.Name = "Knight";
-            base.description = "1.Can attack(15 damage)\n2.Can retreat(unpossible to damage)\n3.Can heal himself(+25% hp)";
+            base.description = "1.Can attack(15 damage)\n2.Can retreat(unpossible to damage)\n3.Can heal himself(+25% HP)";
         }
 
         public override void Turn(Team other, Team our)

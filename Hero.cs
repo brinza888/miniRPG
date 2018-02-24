@@ -27,20 +27,16 @@ namespace RPG
         public void Death()
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("{0} из команды {1} убит!", Name, Team.Name);
+            Console.WriteLine("{0} from team {1} killed!", Name, Team.Name);
             Console.ForegroundColor = ConsoleColor.White;
             Team.Remove(this);
         }
         
         protected void Attack(Team other)
         {
-            for (int i = 0; i < other.Heroes.Count; i++)
-            {
-                Console.WriteLine(i + 1 + "." + other.Heroes[i].Name);
-                i++;
-            }
+            int otherHeroesCount = other.ShowTeamHeroes();
             Console.Write("Choose target: ");
-            int target = int.Parse(Console.ReadLine()) - 1;
+            int target = MyParser.Parse(1, otherHeroesCount) - 1;
             other.Heroes[target].TakeDamage(Damage);
         }
 
@@ -57,7 +53,7 @@ namespace RPG
             Protection = 0;
 
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("{0} from team {3} taked {1} damage.Now {0} has {2} hp", Name, Damage, Hp, Team.Name);
+            Console.WriteLine("{0} from team {3} taked {1} damage.Now {0} has {2} HP", Name, Damage, Hp, Team.Name);
             Console.ForegroundColor = ConsoleColor.White;
         }
         
@@ -72,7 +68,7 @@ namespace RPG
             Hp += healCount;
 
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("{0} from team {3} got {1} healing.Now {0} has {2}HP", Name, healCount, Hp, Team.Name);
+            Console.WriteLine("{0} from team {3} got {1} healing.Now {0} has {2} HP", Name, healCount, Hp, Team.Name);
             Console.ForegroundColor = ConsoleColor.White;
         }
 

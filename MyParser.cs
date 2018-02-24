@@ -12,7 +12,7 @@ namespace RPG
             int a;
             while (!int.TryParse(Console.ReadLine(), out a) || a < min || a > max)
             {
-                Console.WriteLine("Use number!");
+                Console.WriteLine("Use number from {0} to {1}", min, max);
             }
             return a;
         }

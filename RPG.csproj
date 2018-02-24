@@ -45,8 +45,5 @@
     <Compile Include="Knight.cs" />
     <Compile Include="Team.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

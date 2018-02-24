@@ -13,7 +13,7 @@ namespace RPG
             base.Damage = 8;
             base.Defence = 0.25;
             base.Name = "Defender";
-            base.description = "1.Can attack(8 damage)\n2.Can protect friends(-25% damage)\n3.Can heal himself(+25% hp)\nIn passive use shield(-25% damage)";
+            base.description = "1.Can attack(8 damage)\n2.Can protect friends(-25% damage)\n3.Can heal himself(+25% HP)\nIn passive use shield(-25% damage)";
         }
 
         public override void Turn(Team other, Team our)
@@ -35,13 +35,9 @@ namespace RPG
 
         private void ProtectOther(Team our)
         {
-            for (int i = 0; i < our.Heroes.Count; i++)
-            {
-                Console.WriteLine(i + 1 + "." + our.Heroes[i].Name);
-                i++;
-            }
+            int ourHeroesCount = our.ShowTeamHeroes();
             Console.Write("Choose target: ");
-            int target = int.Parse(Console.ReadLine()) - 1;
+            int target = MyParser.Parse(1,ourHeroesCount) - 1;
             our.Heroes[target].SetProtection(0.25);
         }
         

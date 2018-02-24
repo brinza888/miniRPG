@@ -8,16 +8,16 @@ namespace RPG
     {
         public Swordsman(Team team) : base(team) // поменять конструтор
         {
-            base.Damage = 20;
+            base.Damage = 15;
             base.Defence = 0;
             base.Hp = 60;
             base.Name = "Swordsman";
-            base.description = "1.Can attack(15 damage)\n2.Can heal himself(+25% hp).3.Upgrade Sword(damage +1)";
+            base.description = "1.Can attack(15 damage)\n2.Can heal himself(+25% HP).3.Upgrade Sword(damage +1)";
         }
 
         public override void Turn(Team other, Team our)
         {
-            int action = MyParser.Parse(1, 2);
+            int action = MyParser.Parse(1, 3);
             switch (action)
             {
                 case 1:

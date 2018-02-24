@@ -14,7 +14,7 @@ namespace RPG
             base.Damage = 8;
             base.Defence = 0;
             base.Name = "Wizzard";
-            base.description = "1.Can attack(-8)\n2.Can heal others(+50%)\n3.Can heal himself(+25%)";
+            base.description = "1.Can attack(8 damage)\n2.Can heal others(+50% HP)\n3.Can heal himself(+25% HP)";
         }
 
         public override void Turn(Team other, Team our)
@@ -36,13 +36,9 @@ namespace RPG
         
         private void HealOther(Team our)
         {
-            for (int i = 0; i < our.Heroes.Count; i++)
-            {
-                Console.WriteLine(i+1 + "." + our.Heroes[i].Name);
-                i++;
-            }
+            int ourHeroesCount = our.ShowTeamHeroes();
             Console.Write("Choose target: ");
-            int target = MyParser.Parse(1, 4) - 1;
+            int target = MyParser.Parse(1, ourHeroesCount) - 1;
             our.Heroes[target].Healing(0.5);
         }
     }

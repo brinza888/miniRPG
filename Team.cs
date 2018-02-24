@@ -16,24 +16,48 @@ namespace RPG
             Heroes = new List<Hero>(capacity: 4);
             Name = name;
             IsLose = false;
-            Heroes.Add(new Swordsman(this));
+            /*Heroes.Add(new Swordsman(this));
             Heroes.Add(new Knight(this));
             Heroes.Add(new Wizzard(this));
-            Heroes.Add(new Defender(this));
+            Heroes.Add(new Defender(this));*/
         }
 
         public void Remove(Hero hero)
         {
             Heroes.Remove(hero);
         }
+
+        public void ChooseHeroes()
+        {
+            Console.WriteLine("{0} is choosing heroes!", Name);
+            for (int i = 0; i < 4; i++)
+            {
+                Console.WriteLine("Choose {0} hero", i + 1);
+                Console.WriteLine("1.Swordsman\n2.Knight\n3.Defender\n4.Wizzard");
+                int hero = MyParser.Parse(1, 4);
+                switch (hero)
+                {
+                    case 1:
+                        Heroes.Add(new Swordsman(this));
+                        break;
+                    case 2:
+                        Heroes.Add(new Knight(this));
+                        break;
+                    case 3:
+                        Heroes.Add(new Defender(this));
+                        break;
+                    case 4:
+                        Heroes.Add(new Wizzard(this));
+                        break;
+                }
+            }
+            
+        }
         
         public void Turn(Team other, Team our)
         {
             Console.WriteLine("{0} is making turn", Name);
-            for (int i = 0; i < Heroes.Count; i++)
-            {
-                Console.WriteLine(i+1 + "." + Heroes.ToArray()[i].Name);
-            }
+            ShowTeamHeroes();
             Console.Write("Choose hero: ");
             int hero = MyParser.Parse(1, 4) - 1;
             Console.WriteLine(Heroes[hero].ToString());
@@ -41,6 +65,16 @@ namespace RPG
             Heroes[hero].Turn(other, our);
             other.CheckState();
             CheckState();
+        }
+
+        public int ShowTeamHeroes()
+        {
+            for (int i = 0; i < Heroes.Count; i++)
+            {
+                Console.WriteLine(i + 1 + "." + Heroes.ToArray()[i].Name + " (" + Heroes.ToArray()[i].Hp + " HP)");
+            }
+
+            return Heroes.Count;
         }
 
         public void CheckState() 
@@ -52,7 +86,7 @@ namespace RPG
 
             if(Heroes.Count < 1)
             {
-                Console.WriteLine("Команда {0} проиграла!", Name);
+                Console.WriteLine("Team {0} losed!", Name);
                 IsLose = true;
             }
         }
