@@ -11,6 +11,8 @@ namespace RPG
         public List<Hero> Heroes { get; private set; }
         public bool IsLose { get; private set; }
 
+        LoggerConsole logger = new LoggerConsole();
+
         public Team(string name)
         {
             Heroes = new List<Hero>(capacity: 4);
@@ -29,12 +31,12 @@ namespace RPG
 
         public void ChooseHeroes()
         {
-            Console.WriteLine("{0} is choosing heroes!", Name);
+            Console.WriteLine($"{Name} is choosing heroes!");
             for (int i = 0; i < 4; i++)
             {
-                Console.WriteLine("Choose {0} hero", i + 1);
+                Console.WriteLine($"Choose {i + 1} hero");
                 Console.WriteLine("1.Swordsman\n2.Knight\n3.Defender\n4.Wizzard");
-                int hero = MyParser.Parse(1, 4);
+                int hero = logger.Parse(1, 4);
                 switch (hero)
                 {
                     case 1:
@@ -56,10 +58,10 @@ namespace RPG
         
         public void Turn(Team other, Team our)
         {
-            Console.WriteLine("{0} is making turn", Name);
+            Console.WriteLine($"{Name} is making turn");
             ShowTeamHeroes();
             Console.Write("Choose hero: ");
-            int hero = MyParser.Parse(1, 4) - 1;
+            int hero = logger.Parse(1, 4) - 1;
             Console.WriteLine(Heroes[hero].ToString());
             Console.Write("Choose action: ");
             Heroes[hero].Turn(other, our);
@@ -71,7 +73,7 @@ namespace RPG
         {
             for (int i = 0; i < Heroes.Count; i++)
             {
-                Console.WriteLine(i + 1 + "." + Heroes.ToArray()[i].Name + " (" + Heroes.ToArray()[i].Hp + " HP)");
+                Console.WriteLine($"{i + 1}.{Heroes.ToArray()[i].Name} ({Heroes.ToArray()[i].Hp} HP)");
             }
 
             return Heroes.Count;
@@ -86,7 +88,7 @@ namespace RPG
 
             if(Heroes.Count < 1)
             {
-                Console.WriteLine("Team {0} losed!", Name);
+                Console.WriteLine($"Team {Name} losed!");
                 IsLose = true;
             }
         }

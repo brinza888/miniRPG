@@ -7,18 +7,21 @@ namespace RPG
 {
     public class Knight : Hero
     {
-        public Knight(Team team) : base(team)
+        LoggerConsole logger = new LoggerConsole();
+
+        public Knight(Team team) : base(team, 50, 15, 0, "Knight")
         {
-            base.Hp = 50;
-            base.Damage = 15;
-            base.Defence = 0;
-            base.Name = "Knight";
-            base.description = "1.Can attack(15 damage)\n2.Can retreat(unpossible to damage)\n3.Can heal himself(+25% HP)";
+            
+        }
+
+        public override string ToString()
+        {
+            return $"1.Can attack({Damage} damage)\n2.Can retreat(unpossible to damage)\n3.Can heal himself(+25% HP)";
         }
 
         public override void Turn(Team other, Team our)
         {
-            int action = MyParser.Parse(1, 3);
+            int action = logger.Parse(1, 3);
             switch (action)
             {
                 case 1:

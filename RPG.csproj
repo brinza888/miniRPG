@@ -36,7 +36,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MyParser.cs" />
+    <Compile Include="ILogger.cs" />
+    <Compile Include="LoggerConsole.cs" />
     <Compile Include="Rpg.cs" />
     <Compile Include="Hero.cs" />
     <Compile Include="Wizzard.cs" />

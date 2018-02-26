@@ -12,22 +12,22 @@ namespace RPG
         public double Protection { get; protected set; }
         public string Name { get; protected set; }
         public Team Team { get; protected set; }
-        protected string description;
 
-        public Hero(Team team)
+        LoggerConsole logger = new LoggerConsole();
+
+        public Hero(Team team, int hp, int damage, double defence, string name)
         {
+            Hp = hp;
+            Damage = damage;
+            Defence = defence;
+            Name = name;
             Team = team;
-        }
-
-        public override string ToString()
-        {
-            return description; // по-другому
         }
         
         public void Death()
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("{0} from team {1} killed!", Name, Team.Name);
+            Console.WriteLine($"{Name} from team {Team.Name} killed!");
             Console.ForegroundColor = ConsoleColor.White;
             Team.Remove(this);
         }
@@ -36,7 +36,7 @@ namespace RPG
         {
             int otherHeroesCount = other.ShowTeamHeroes();
             Console.Write("Choose target: ");
-            int target = MyParser.Parse(1, otherHeroesCount) - 1;
+            int target = logger.Parse(1, otherHeroesCount) - 1;
             other.Heroes[target].TakeDamage(Damage);
         }
 
@@ -53,7 +53,7 @@ namespace RPG
             Protection = 0;
 
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("{0} from team {3} taked {1} damage.Now {0} has {2} HP", Name, Damage, Hp, Team.Name);
+            Console.WriteLine($"{Name} from team {Team.Name} taked {damage} damage.Now {Name} has {Hp} HP");
             Console.ForegroundColor = ConsoleColor.White;
         }
         
@@ -68,7 +68,7 @@ namespace RPG
             Hp += healCount;
 
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("{0} from team {3} got {1} healing.Now {0} has {2} HP", Name, healCount, Hp, Team.Name);
+            Console.WriteLine($"{Name} from team {Team.Name} got {healCount} healing.Now {Name} has {Hp} HP");
             Console.ForegroundColor = ConsoleColor.White;
         }
 

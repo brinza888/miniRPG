@@ -6,18 +6,21 @@ namespace RPG
 {
     public class Swordsman : Hero
     {
-        public Swordsman(Team team) : base(team) // поменять конструтор
+        LoggerConsole logger = new LoggerConsole();
+
+        public Swordsman(Team team) : base(team, 60, 15, 0, "Swordsman")
         {
-            base.Damage = 15;
-            base.Defence = 0;
-            base.Hp = 60;
-            base.Name = "Swordsman";
-            base.description = "1.Can attack(15 damage)\n2.Can heal himself(+25% HP).3.Upgrade Sword(damage +1)";
+
+        }
+
+        public override string ToString()
+        {
+            return $"1.Can attack({Damage} damage)\n2.Can Upgrade Sword(+1 to damage)\n3.Can heal himself(+25% HP)";
         }
 
         public override void Turn(Team other, Team our)
         {
-            int action = MyParser.Parse(1, 3);
+            int action = logger.Parse(1, 3);
             switch (action)
             {
                 case 1:
@@ -25,6 +28,9 @@ namespace RPG
                     break;
                 case 2:
                     Healing();
+                    break;
+                case 3:
+                    UpgradeSword();
                     break;
             }
         }

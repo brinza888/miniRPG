@@ -7,19 +7,21 @@ namespace RPG
 {
     public class Wizzard : Hero
     {
-        
-        public Wizzard(Team team) : base(team)
+        LoggerConsole logger = new LoggerConsole();
+
+        public Wizzard(Team team) : base(team, 40, 8, 0, "Wizzard")
         {
-            base.Hp = 40;
-            base.Damage = 8;
-            base.Defence = 0;
-            base.Name = "Wizzard";
-            base.description = "1.Can attack(8 damage)\n2.Can heal others(+50% HP)\n3.Can heal himself(+25% HP)";
+            // "1.Can attack(8 damage)\n2.Can heal others(+50% HP)\n3.Can heal himself(+25% HP)"
+        }
+
+        public override string ToString()
+        {
+            return $"1.Can attack({Damage} damage)\n2.Can heal others(+50% HP)\n3.Can heal himself(+25% HP)";
         }
 
         public override void Turn(Team other, Team our)
         {
-            int action = MyParser.Parse(1, 3);
+            int action = logger.Parse(1, 3);
             switch (action)
             {
                 case 1:
@@ -38,7 +40,7 @@ namespace RPG
         {
             int ourHeroesCount = our.ShowTeamHeroes();
             Console.Write("Choose target: ");
-            int target = MyParser.Parse(1, ourHeroesCount) - 1;
+            int target = logger.Parse(1, ourHeroesCount) - 1;
             our.Heroes[target].Healing(0.5);
         }
     }
