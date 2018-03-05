@@ -9,6 +9,6 @@ namespace RPG
     {
         void Print(string output, string end = "\n");
         string Input(string hint = "");
-        int Parse(int min, int max);
+        int Parse(int min, int max, string hint = "");
     }
 }

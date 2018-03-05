@@ -7,7 +7,7 @@ namespace RPG
 {
     public class Knight : Hero
     {
-        LoggerConsole logger = new LoggerConsole();
+        ILogger logger = new LoggerConsole();
 
         public Knight(Team team) : base(team, 50, 15, 0, "Knight")
         {
@@ -21,7 +21,7 @@ namespace RPG
 
         public override void Turn(Team other, Team our)
         {
-            int action = logger.Parse(1, 3);
+            int action = logger.Parse(1, 3, "Choose action: ");
             switch (action)
             {
                 case 1:

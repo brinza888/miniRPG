@@ -38,7 +38,7 @@
   <ItemGroup>
     <Compile Include="ILogger.cs" />
     <Compile Include="LoggerConsole.cs" />
-    <Compile Include="Rpg.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Hero.cs" />
     <Compile Include="Wizzard.cs" />
     <Compile Include="Swordsman.cs" />

@@ -6,7 +6,7 @@ namespace RPG
 {
     public class Swordsman : Hero
     {
-        LoggerConsole logger = new LoggerConsole();
+        ILogger logger = new LoggerConsole();
 
         public Swordsman(Team team) : base(team, 60, 15, 0, "Swordsman")
         {
@@ -20,7 +20,7 @@ namespace RPG
 
         public override void Turn(Team other, Team our)
         {
-            int action = logger.Parse(1, 3);
+            int action = logger.Parse(1, 3, "Choose action: ");
             switch (action)
             {
                 case 1:

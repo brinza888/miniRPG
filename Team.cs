@@ -11,17 +11,13 @@ namespace RPG
         public List<Hero> Heroes { get; private set; }
         public bool IsLose { get; private set; }
 
-        LoggerConsole logger = new LoggerConsole();
+        ILogger logger = new LoggerConsole();
 
         public Team(string name)
         {
             Heroes = new List<Hero>(capacity: 4);
             Name = name;
             IsLose = false;
-            /*Heroes.Add(new Swordsman(this));
-            Heroes.Add(new Knight(this));
-            Heroes.Add(new Wizzard(this));
-            Heroes.Add(new Defender(this));*/
         }
 
         public void Remove(Hero hero)
@@ -31,11 +27,11 @@ namespace RPG
 
         public void ChooseHeroes()
         {
-            Console.WriteLine($"{Name} is choosing heroes!");
+            logger.Print($"{Name} is choosing heroes!");
             for (int i = 0; i < 4; i++)
             {
-                Console.WriteLine($"Choose {i + 1} hero");
-                Console.WriteLine("1.Swordsman\n2.Knight\n3.Defender\n4.Wizzard");
+                logger.Print($"Choose {i + 1} hero");
+                logger.Print("1.Swordsman\n2.Knight\n3.Defender\n4.Wizzard");
                 int hero = logger.Parse(1, 4);
                 switch (hero)
                 {
@@ -58,37 +54,37 @@ namespace RPG
         
         public void Turn(Team other, Team our)
         {
-            Console.WriteLine($"{Name} is making turn");
+            logger.Print($"{Name} is making turn");
             ShowTeamHeroes();
-            Console.Write("Choose hero: ");
-            int hero = logger.Parse(1, 4) - 1;
-            Console.WriteLine(Heroes[hero].ToString());
-            Console.Write("Choose action: ");
+
+            int hero = logger.Parse(1, 4, "Choose hero: ") - 1;
+            logger.Print(Heroes[hero].ToString());
             Heroes[hero].Turn(other, our);
-            other.CheckState();
-            CheckState();
+
+            other.CheckTeam();
+            CheckTeam();
         }
 
         public int ShowTeamHeroes()
         {
             for (int i = 0; i < Heroes.Count; i++)
             {
-                Console.WriteLine($"{i + 1}.{Heroes.ToArray()[i].Name} ({Heroes.ToArray()[i].Hp} HP)");
+                logger.Print($"{i + 1}.{Heroes[i].Name} ({Heroes[i].Hp} HP)");
             }
 
             return Heroes.Count;
         }
 
-        public void CheckState() 
+        public void CheckTeam() 
         {
-            foreach (Hero el in Heroes.ToArray())
+            foreach (Hero el in Heroes)
             {
                 el.CheckState();
             }
 
             if(Heroes.Count < 1)
             {
-                Console.WriteLine($"Team {Name} losed!");
+                logger.Print($"Team {Name} losed!");
                 IsLose = true;
             }
         }

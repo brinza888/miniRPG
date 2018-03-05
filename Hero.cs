@@ -13,7 +13,7 @@ namespace RPG
         public string Name { get; protected set; }
         public Team Team { get; protected set; }
 
-        LoggerConsole logger = new LoggerConsole();
+        ILogger logger = new LoggerConsole();
 
         public Hero(Team team, int hp, int damage, double defence, string name)
         {
@@ -27,7 +27,7 @@ namespace RPG
         public void Death()
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"{Name} from team {Team.Name} killed!");
+            logger.Print($"{Name} from team {Team.Name} killed!");
             Console.ForegroundColor = ConsoleColor.White;
             Team.Remove(this);
         }
@@ -35,14 +35,13 @@ namespace RPG
         protected void Attack(Team other)
         {
             int otherHeroesCount = other.ShowTeamHeroes();
-            Console.Write("Choose target: ");
-            int target = logger.Parse(1, otherHeroesCount) - 1;
+            int target = logger.Parse(1, otherHeroesCount, "Choose target: ") - 1;
             other.Heroes[target].TakeDamage(Damage);
         }
 
         public virtual void Turn(Team other, Team our)
         {
-            Console.WriteLine(false);
+            // пустой метод
         }
         
         public void TakeDamage(int damage)
@@ -53,7 +52,7 @@ namespace RPG
             Protection = 0;
 
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"{Name} from team {Team.Name} taked {damage} damage.Now {Name} has {Hp} HP");
+            logger.Print($"{Name} from team {Team.Name} taked {damage} damage.Now {Name} has {Hp} HP");
             Console.ForegroundColor = ConsoleColor.White;
         }
         
@@ -68,7 +67,7 @@ namespace RPG
             Hp += healCount;
 
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine($"{Name} from team {Team.Name} got {healCount} healing.Now {Name} has {Hp} HP");
+            logger.Print($"{Name} from team {Team.Name} got {healCount} healing.Now {Name} has {Hp} HP");
             Console.ForegroundColor = ConsoleColor.White;
         }
 

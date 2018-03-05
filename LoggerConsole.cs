@@ -18,12 +18,12 @@ namespace RPG
             Console.Write(output + end);
         }
 
-        public int Parse(int min, int max)
+        public int Parse(int min, int max, string hint = "")
         {
             int parsedValue;
-            while (!int.TryParse(Input(), out parsedValue) || parsedValue < min || parsedValue > max)
+            while (!int.TryParse(Input(hint), out parsedValue) || parsedValue < min || parsedValue > max)
             {
-                Print($"Use number from {min} to {max}");
+                Print($"Use integer number from {min} to {max}!");
             }
             return parsedValue;
         }

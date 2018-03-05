@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace RPG
 {
-    public class Rpg
+    public class Program
     {
         public static void Main(string[] args)
         {

@@ -8,3 +8,8 @@ C:\Users\bezru\Desktop\miniRPG\obj\Debug\RPG.pdb
 C:\Users\bezru\Desktop\miniRPG\bin\Debug\RPG.exe
 C:\Users\bezru\Desktop\miniRPG\bin\Debug\RPG.pdb
 C:\Users\bezru\Desktop\miniRPG\obj\Debug\RPG.csprojResolveAssemblyReference.cache
+C:\Users\Admin\Desktop\miniRPG\obj\Debug\RPG.exe
+C:\Users\Admin\Desktop\miniRPG\obj\Debug\RPG.pdb
+C:\Users\Admin\Desktop\miniRPG\bin\Debug\RPG.exe
+C:\Users\Admin\Desktop\miniRPG\bin\Debug\RPG.pdb
+C:\Users\Admin\Desktop\miniRPG\obj\Debug\RPG.csprojResolveAssemblyReference.cache

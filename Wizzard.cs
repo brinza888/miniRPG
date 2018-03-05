@@ -7,7 +7,7 @@ namespace RPG
 {
     public class Wizzard : Hero
     {
-        LoggerConsole logger = new LoggerConsole();
+        ILogger logger = new LoggerConsole();
 
         public Wizzard(Team team) : base(team, 40, 8, 0, "Wizzard")
         {
@@ -21,7 +21,7 @@ namespace RPG
 
         public override void Turn(Team other, Team our)
         {
-            int action = logger.Parse(1, 3);
+            int action = logger.Parse(1, 3, "Choose action: ");
             switch (action)
             {
                 case 1:
@@ -39,8 +39,7 @@ namespace RPG
         private void HealOther(Team our)
         {
             int ourHeroesCount = our.ShowTeamHeroes();
-            Console.Write("Choose target: ");
-            int target = logger.Parse(1, ourHeroesCount) - 1;
+            int target = logger.Parse(1, ourHeroesCount, "Choose target: ") - 1;
             our.Heroes[target].Healing(0.5);
         }
     }
