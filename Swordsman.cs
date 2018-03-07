@@ -18,7 +18,7 @@ namespace RPG
             return $"1.Can attack({Damage} damage)\n2.Can Upgrade Sword(+1 to damage)\n3.Can heal himself(+25% HP)";
         }
 
-        public override void Turn(Team other, Team our)
+        public override void Turn(Team other)
         {
             int action = logger.Parse(1, 3, "Choose action: ");
             switch (action)
@@ -27,10 +27,10 @@ namespace RPG
                     Attack(other);
                     break;
                 case 2:
-                    Healing();
+                    UpgradeSword();
                     break;
                 case 3:
-                    UpgradeSword();
+                    Healing();
                     break;
             }
         }

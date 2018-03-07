@@ -9,7 +9,20 @@ namespace RPG
     {
         public string Name { get; private set; }
         public List<Hero> Heroes { get; private set; }
-        public bool IsLose { get; private set; }
+        public bool IsLose
+        {
+            get
+            {
+                if (Heroes.Count < 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
 
         ILogger logger = new LoggerConsole();
 
@@ -17,7 +30,6 @@ namespace RPG
         {
             Heroes = new List<Hero>(capacity: 4);
             Name = name;
-            IsLose = false;
         }
 
         public void Remove(Hero hero)
@@ -27,12 +39,13 @@ namespace RPG
 
         public void ChooseHeroes()
         {
-            logger.Print($"{Name} is choosing heroes!");
+            Message msg1 = new Message($"{Name} is choosing heroes!");
+            logger.Print(msg1);
             for (int i = 0; i < 4; i++)
             {
-                logger.Print($"Choose {i + 1} hero");
-                logger.Print("1.Swordsman\n2.Knight\n3.Defender\n4.Wizzard");
-                int hero = logger.Parse(1, 4);
+                Message heroes = new Message("1.Swordsman\n2.Knight\n3.Defender\n4.Wizzard");
+                logger.Print(heroes);
+                int hero = logger.Parse(1, 4, $"Choose {i + 1} hero: ");
                 switch (hero)
                 {
                     case 1:
@@ -52,14 +65,16 @@ namespace RPG
             
         }
         
-        public void Turn(Team other, Team our)
+        public void Turn(Team other)
         {
-            logger.Print($"{Name} is making turn");
+            Message msg = new Message($"{Name} is making turn");
+            logger.Print(msg);
             ShowTeamHeroes();
 
             int hero = logger.Parse(1, 4, "Choose hero: ") - 1;
-            logger.Print(Heroes[hero].ToString());
-            Heroes[hero].Turn(other, our);
+            Message heroMsg = new Message(Heroes[hero].ToString());
+            logger.Print(heroMsg);
+            Heroes[hero].Turn(other);
 
             other.CheckTeam();
             CheckTeam();
@@ -69,7 +84,8 @@ namespace RPG
         {
             for (int i = 0; i < Heroes.Count; i++)
             {
-                logger.Print($"{i + 1}.{Heroes[i].Name} ({Heroes[i].Hp} HP)");
+                Message msg = new Message($"{i + 1}.{Heroes[i].Name} ({Heroes[i].Hp} HP)");
+                logger.Print(msg);
             }
 
             return Heroes.Count;
@@ -77,15 +93,9 @@ namespace RPG
 
         public void CheckTeam() 
         {
-            foreach (Hero el in Heroes)
+            foreach (Hero el in Heroes.ToArray())
             {
                 el.CheckState();
-            }
-
-            if(Heroes.Count < 1)
-            {
-                logger.Print($"Team {Name} losed!");
-                IsLose = true;
             }
         }
     }

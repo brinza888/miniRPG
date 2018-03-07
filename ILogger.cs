@@ -7,7 +7,7 @@ namespace RPG
 {
     interface ILogger
     {
-        void Print(string output, string end = "\n");
+        void Print(Message output, bool end = true);
         string Input(string hint = "");
         int Parse(int min, int max, string hint = "");
     }

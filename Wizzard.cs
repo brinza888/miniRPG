@@ -11,7 +11,7 @@ namespace RPG
 
         public Wizzard(Team team) : base(team, 40, 8, 0, "Wizzard")
         {
-            // "1.Can attack(8 damage)\n2.Can heal others(+50% HP)\n3.Can heal himself(+25% HP)"
+            
         }
 
         public override string ToString()
@@ -19,7 +19,7 @@ namespace RPG
             return $"1.Can attack({Damage} damage)\n2.Can heal others(+50% HP)\n3.Can heal himself(+25% HP)";
         }
 
-        public override void Turn(Team other, Team our)
+        public override void Turn(Team other)
         {
             int action = logger.Parse(1, 3, "Choose action: ");
             switch (action)
@@ -28,7 +28,7 @@ namespace RPG
                     Attack(other);
                     break;
                 case 2:
-                    HealOther(our);
+                    HealOther(HisTeam);
                     break;
                 case 3:
                     Healing();

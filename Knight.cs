@@ -19,7 +19,7 @@ namespace RPG
             return $"1.Can attack({Damage} damage)\n2.Can retreat(unpossible to damage)\n3.Can heal himself(+25% HP)";
         }
 
-        public override void Turn(Team other, Team our)
+        public override void Turn(Team other)
         {
             int action = logger.Parse(1, 3, "Choose action: ");
             switch (action)
@@ -38,7 +38,7 @@ namespace RPG
 
         public void Retreat()
         {
-            this.SetProtection(1.0);
+            Protection = 1.0;
         }
     }
 }

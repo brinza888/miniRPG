@@ -21,7 +21,7 @@ namespace RPG
             while (!teams[0].IsLose && !teams[1].IsLose)
             {
                 int next_turn = (now_turn + 1) % 2;
-                teams[now_turn].Turn(teams[next_turn], teams[now_turn]);
+                teams[now_turn].Turn(teams[next_turn]);
                 now_turn = next_turn;
             }
 
