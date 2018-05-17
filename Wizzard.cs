@@ -7,8 +7,6 @@ namespace RPG
 {
     public class Wizzard : Hero
     {
-        ILogger logger = new LoggerConsole();
-
         public Wizzard(Team team) : base(team, 40, 8, 0, "Wizzard")
         {
             

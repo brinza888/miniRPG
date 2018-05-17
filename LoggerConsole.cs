@@ -14,12 +14,12 @@ namespace RPG
             return Console.ReadLine();
         }
 
-        public void Print(Message msg, bool end = true)
+        public void Print(Message msg, bool newLine = true)
         {
             ConsoleColor previous = Console.ForegroundColor;
             Console.ForegroundColor = (ConsoleColor) msg.MessageColor;
 
-            if (end)
+            if (newLine)
                 Console.WriteLine(msg.Text);
             else
                 Console.Write(msg.Text);

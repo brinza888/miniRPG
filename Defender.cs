@@ -7,8 +7,6 @@ namespace RPG
 {
     public class Defender : Hero
     {
-        ILogger logger = new LoggerConsole();
-
         public Defender(Team team) : base(team, 100, 8, 0.25, "Defender")
         {
 

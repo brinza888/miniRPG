@@ -9,7 +9,9 @@ namespace RPG
     {
         public static void Main(string[] args)
         {
-            Team[] teams = { new Team("Red"), new Team("Green") };
+            ILogger logger = new LoggerConsole();
+            Team[] teams = { new Team("Red", ref logger), new Team("Green", ref logger) };
+
             foreach (Team team in teams)
             {
                 team.ChooseHeroes();

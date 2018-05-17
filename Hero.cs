@@ -10,6 +10,8 @@ namespace RPG
         public int Damage { get; protected set; }
         public double Defence { get; protected set; }
         private double _protection;
+        protected ILogger logger;
+
         public double Protection
         {
             get
@@ -25,8 +27,20 @@ namespace RPG
         }
         public string Name { get; protected set; }
         public Team HisTeam { get; protected set; }
-
-        ILogger logger = new LoggerConsole();
+        public bool Death
+        {
+            get
+            {
+                if (Hp <= 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
 
         public Hero(Team team, int hp, int damage, double defence, string name)
         {
@@ -36,13 +50,7 @@ namespace RPG
             Name = name;
             HisTeam = team;
             _protection = 0.0;
-        }
-        
-        public void Death()
-        {
-            Message msg = new Message($"{Name} from team {HisTeam.Name} killed!", Message.Type.DEATH);
-            logger.Print(msg);
-            HisTeam.Remove(this);
+            logger = HisTeam.Logger;
         }
         
         protected void Attack(Team other)
@@ -72,14 +80,6 @@ namespace RPG
 
             Message msg = new Message($"{Name} from team {HisTeam.Name} got {healCount} healing.Now {Name} has {Hp} HP", Message.Type.HEALING);
             logger.Print(msg);
-        }
-
-        public void CheckState()
-        {
-            if (Hp <= 0)
-            {
-                this.Death();
-            }
         }
     }
 }

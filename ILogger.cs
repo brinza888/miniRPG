@@ -5,7 +5,7 @@ using System.Text;
 
 namespace RPG
 {
-    interface ILogger
+    public interface ILogger
     {
         void Print(Message output, bool end = true);
         string Input(string hint = "");

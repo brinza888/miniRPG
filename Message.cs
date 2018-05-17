@@ -23,7 +23,7 @@ namespace RPG
         }
 
         public Message(string msg, Type type = Type.TEXT)
-        {
+        { 
             Text = msg;
             MessageColor = type;
         }
